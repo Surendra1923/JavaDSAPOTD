@@ -35,21 +35,29 @@ public class isomorphic_strings {
         
         HashMap<Character,Character> m=new HashMap<>();
         
-        for(int i=0; i<str1.length() ; i++){
+        if(str1.length()!=str2.length()) return false;
+        
+        HashMap<Character,Character> m=new HashMap<>();
+        HashMap<Character,Integer> vis=new HashMap<>();
+        
+        for(int i=0;i<str1.length();i++)
+        {
             
-            if(m.containsKey(str1.charAt(i))) {
+            char c1=str1.charAt(i), c2=str2.charAt(i);
+            
+            if(!m.containsKey(c1)){
                 
-                if(m.get(str1.charAt(i))!=str2.charAt(i)){
+                
+                if(!vis.containsKey(c2)){
+                    m.put(c1,c2);
+                    vis.put(c2,1);
+                }
+                else if(vis.get(c2)==1){
                     return false;
                 }
             }
-            else{
-                
-                if(m.containsValue(str2.charAt(i))){
-                    
-                    return false;
-                }
-                m.put(str1.charAt(i),str2.charAt(i));
+            else if(m.get(c1)!=c2){
+                return false;
             }
         }
         return true;
